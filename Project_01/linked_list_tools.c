@@ -54,16 +54,25 @@ void printList(node *head)
 	{
 		printf("[");
 		while (curr_node->next != NULL)
-			printf("%d ,", &curr_node->data);
-		printf("%d]\n", &curr_node->data);
+		{
+			printf("%d ,", curr_node->data);
+			curr_node = curr_node->next;
+		}
+			
+		printf("%d]\n", curr_node->data);
 	}
 	return;
 }
 
+
 int main()
 {
 	node *head=NULL;
+	printList(head);
 	head = insert_start(head, 1);
+	printList(head);
 	head = insert_end(head, 2);
+	printList(head);
+	head = insert_start(head, 3);
 	printList(head);
 }
