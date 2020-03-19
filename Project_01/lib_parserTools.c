@@ -76,7 +76,7 @@ int CheckAction(char *action_string) {
 	}
 }
 
-int CheckNumber(char *number_string) {
+int CheckNumber(char *number_string, int* exit_flag) {
 	int value;
 	size_t idx = 0;
 	char string_number_copy[LONGEST_INT_SIZE] = "";
@@ -86,7 +86,7 @@ int CheckNumber(char *number_string) {
 			string_number_copy[idx] = number_string[idx];
 			break;
 		}
-		if (number_string[idx] <= 57 && number_string[idx] >= 48)
+		if (number_string[idx] <= 57 && number_string[idx] >= 48 || number_string[idx] == '-')
 			string_number_copy[idx] = number_string[idx];
 		else {
 			string_number_copy[idx] = '\0';
@@ -97,6 +97,7 @@ int CheckNumber(char *number_string) {
 	value = atoi(string_number_copy);
 	if (value == 0) {
 		raiseError(4, __FILE__, __func__, __LINE__, ERR_4_NUMBER_NOT_DEFINED);
+		*exit_flag = ERR;
 		return ERR;
 	}
 	else
@@ -158,16 +159,16 @@ node* mainFunctionIteration(node *head, int *didnt_exit) {
 	}
 	if (action_wanted != PRINT && action_wanted != EXIT && action_wanted != NO_ACTION) {
 		str_ptr = FindNextWordBegining(input);
-		first_number = CheckNumber(str_ptr);
-		if (str_ptr == NULL || first_number == -1) {
+		first_number = CheckNumber(str_ptr, didnt_exit);
+		if (str_ptr == NULL || didnt_exit == ERR) {
 			head = freeList(head);
 			*didnt_exit = 0;
 		}
 	}
 	if (action_wanted == ADD_AFTER) {
 		str_ptr = FindNextWordBegining(str_ptr);
-		second_number = CheckNumber(str_ptr);
-		if (str_ptr == NULL || second_number == -1) {
+		second_number = CheckNumber(str_ptr, didnt_exit);
+		if (str_ptr == NULL || didnt_exit == ERR) {
 			head = freeList(head);
 			*didnt_exit = 0;
 		}
