@@ -131,25 +131,28 @@ int add_after_element(node *head, int element, int data)
 	return TRUE;
 }
 
-void printElementIdx(node *head, int element)
-{
+void printElementIdx(node *head, int element){
 	int element_idx = find_node_by_data(head, element, MODE_RETURN_NODE_IDX);
 
 	if (element_idx != ERR)
 		printf("%d\n", element_idx);
 	else
 		printf("%d\n", ERR);
-}
+}    
 
 int del_idx(node *head, int idx)
 {
 	node *quarntine_node = find_node_by_index(head, idx);
-	node *prev_node, *next_node;
-	if (quarntine_node == NULL) return ERR;
+	node *prev_node=NULL, *next_node= NULL;
+
+	if (quarntine_node == NULL) 
+		return ERR;
 	prev_node = quarntine_node->prev;
 	next_node = quarntine_node->next;
-	prev_node->next = next_node;
-	next_node->prev = prev_node;
+	if (prev_node != NULL)
+		prev_node->next = next_node;
+	if(next_node != NULL)   
+		next_node->prev = prev_node;
 	free(quarntine_node);
 	return TRUE;
 }
@@ -158,7 +161,7 @@ void printList(node *head)
 {
 	node *curr_node = head;
 	if (head == NULL)
-		printf("Your list is empty.\n");
+		printf("[]\n");
 	else
 	{
 		printf("[");
@@ -188,7 +191,7 @@ node* freeList(node *head)
 }
 
 // TEST BENCH
-int main()
+int main1()
 {
 	node *head=NULL;
 	int list[5] = { 1,2,3,4,5 };

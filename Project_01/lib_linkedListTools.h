@@ -23,4 +23,6 @@ void printList(node *head);
 
 node* freeList(node *head);
 
+int del_idx(node *head, int idx);
+
 #endif LIB_LINKED_LIST_TOOLS_H
