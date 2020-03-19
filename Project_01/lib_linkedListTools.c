@@ -13,9 +13,6 @@ this lib is used for handeling linked lists
 #include "lib_errorHandler.h"
 #include "lib_linkedListTools.h"
 
-// Defines ---------------------------------------------------------------------->
-#define MODE_RETURN_NODE_IDX 0
-#define MODE_RETURN_NODE_PTR 1
 
 // Private Functions ---------------------------------------------------------------------->
 
@@ -40,7 +37,6 @@ int isListEmpty(node *head)
 	// check if list is empty a given head node, if so - raise errors
 	if (head == NULL)
 	{
-		printf("List is Empty!\n");
 		raiseError(1, __FILE__, __func__, __LINE__, ERR_1_LINKED_LIST_ERR);
 		return TRUE;
 	}
@@ -62,24 +58,28 @@ node* find_node_by_index(node *head, int idx)
 	return curr_node;
 }
 
-node* find_node_by_data(node *head, int element, int mode)
+node* find_node_by_data_ret_node(node *head, int element)
+{
+	node* curr_node = head;
+	while (curr_node != NULL)
+	{
+		if (curr_node->data == element) return curr_node;
+		curr_node = curr_node->next;
+	}
+	raiseError(1, __FILE__, __func__, __LINE__, ERR_1_LINKED_LIST_ERR);
+	return NULL;
+}
+
+int find_node_by_data_ret_idx(node *head, int element)
 {
 	node* curr_node = head;
 	int idx = 0;
 	while (curr_node != NULL)
 	{
-		if (curr_node->data == element)
-		{
-			if (mode == MODE_RETURN_NODE_PTR) return curr_node;
-			return idx;
-		}
-
+		if (curr_node->data == element) return idx;
 		idx++;
 		curr_node = curr_node->next;
 	}
-
-	raiseError(1, __FILE__, __func__, __LINE__, ERR_1_LINKED_LIST_ERR);
-	if (mode == MODE_RETURN_NODE_PTR) return NULL;
 	return ERR;
 }
 
@@ -95,7 +95,7 @@ node* insert_start(node *head, int data)
 	return new_node;
 }
 
-node *insert_end(node *head, int data)
+node* insert_end(node *head, int data)
 {
 	node *new_node = init_node(data);
 	node *curr_node = head;
@@ -116,7 +116,7 @@ node *insert_end(node *head, int data)
 int add_after_element(node *head, int element, int data)
 {
 	node *new_node = init_node(data);
-	node *element_node = find_node_by_data(head, element, MODE_RETURN_NODE_PTR);
+	node *element_node = find_node_by_data_ret_node(head, element);
 	node *temp_node;
 
 	if (element_node == NULL) return ERR;
@@ -132,7 +132,7 @@ int add_after_element(node *head, int element, int data)
 }
 
 void printElementIdx(node *head, int element){
-	int element_idx = find_node_by_data(head, element, MODE_RETURN_NODE_IDX);
+	int element_idx = find_node_by_data_ret_idx(head, element);
 
 	if (element_idx != ERR)
 		printf("%d\n", element_idx);
@@ -140,21 +140,30 @@ void printElementIdx(node *head, int element){
 		printf("%d\n", ERR);
 }    
 
-int del_idx(node *head, int idx)
+node* del_idx(node *head, int idx, int *exit_flag)
 {
 	node *quarntine_node = find_node_by_index(head, idx);
 	node *prev_node=NULL, *next_node= NULL;
+	node *new_head = head;
 
-	if (quarntine_node == NULL) 
-		return ERR;
+	if (quarntine_node == NULL)
+	{
+		*exit_flag = ERR;
+		return NULL;
+	}
+
 	prev_node = quarntine_node->prev;
 	next_node = quarntine_node->next;
+	if (next_node != NULL)
+		next_node->prev = prev_node;
 	if (prev_node != NULL)
 		prev_node->next = next_node;
-	if(next_node != NULL)   
-		next_node->prev = prev_node;
+	else
+		new_head = next_node;
+
 	free(quarntine_node);
-	return TRUE;
+	
+	return new_head;
 }
 
 void printList(node *head)
@@ -190,23 +199,3 @@ node* freeList(node *head)
 	return NULL;
 }
 
-// TEST BENCH
-int main1()
-{
-	node *head=NULL;
-	int list[5] = { 1,2,3,4,5 };
-	int status = TRUE;
-
-	for (int i = 0; i < 5; i++)
-		head = insert_end(head, list[i]);
-	
-	printList(head);
-	status = add_after_element(head,1, 5);
-	printList(head);
-	printElementIdx(head,1);
-	status = del_idx(head, 3);
-	printList(head);
-	head = freeList(head);
-	printList(head);
-
-}

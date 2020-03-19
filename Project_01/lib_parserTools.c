@@ -7,7 +7,6 @@ this lib is used for parsering and has the main() function.
 
 
 // Includes ---------------------------------------------------------------------->
-
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
@@ -49,7 +48,7 @@ char* FindNextWordBegining(char* string_ptr) {
 }
 
 int CheckAction(char *action_string) {
-	int idx = 0;
+	size_t idx = 0;
 	char action_type[MAX_LINE_LEN] = "";
 
 	for (idx = 0; idx < strlen(action_string); idx++) {
@@ -78,7 +77,8 @@ int CheckAction(char *action_string) {
 }
 
 int CheckNumber(char *number_string) {
-	int idx = 0, value;
+	int value;
+	size_t idx = 0;
 	char string_number_copy[LONGEST_INT_SIZE] = "";
 
 	for (idx = 0; idx < strlen(number_string); idx++) {
@@ -105,7 +105,7 @@ int CheckNumber(char *number_string) {
 
 void UpperToLowerCase(char *action_string) {
 	char lower_case[MAX_LINE_LEN] = "";
-	int idx = 0;
+	size_t idx = 0;
 
 	for (idx = 0; idx < strlen(action_string); idx++) {
 		action_string[idx] = tolower(action_string[idx]);
@@ -129,7 +129,7 @@ node *executeFunction(node *head, int action, int first_number, int second_numbe
 		printElementIdx(head, first_number);
 		break;
 	case DEL:
-		*exit_flag = del_idx(head, first_number);
+		head = del_idx(head, first_number, exit_flag);
 		break;
 	case PRINT:
 		printList(head);
@@ -183,12 +183,9 @@ int main() {
 	char input[MAX_LINE_LEN] = "", *str_ptr = NULL;
 	int didnt_exit = TRUE;
 
-	while (didnt_exit == TRUE) {
-		head = mainFunctionIteration(head, &didnt_exit);
-		printList(head);
-	}
+	while (didnt_exit == TRUE) head = mainFunctionIteration(head, &didnt_exit);
 
-	printf("End of program\n");
+	printf("Program Ended.\n");
 	return 0;
 
 }

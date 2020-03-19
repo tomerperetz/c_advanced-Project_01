@@ -20,6 +20,6 @@ void raiseError(int error_id, const char *file_path, const char *function_name, 
 	printf("File: %s\n", file_path);
 	printf("Function: %s\n", function_name);
 	printf("Line: %d\n", line);
-	printf("Description: %s\n", description);
+	printf("Description: %s", description);
 	printf("=====================================================================\n");
 }
