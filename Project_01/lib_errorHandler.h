@@ -22,4 +22,4 @@ this lib is used for error handeling.
 void raiseError(int error_id, const char *file_path, const char *function_name, int line, const char *description);
 
 
-#endif LIB_ERROR_HANDLER_H
+#endif

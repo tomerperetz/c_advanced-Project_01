@@ -46,10 +46,11 @@ int isListEmpty(node *head)
 node* find_node_by_index(node *head, int idx)
 {
 	node* curr_node = head;
+	int i = 0;
 
 	if (isListEmpty(curr_node)) return NULL;
 
-	for (int i = 0; i < idx; i++)
+	for (i = 0; i < idx; i++)
 	{
 		if (isListEmpty(curr_node->next)) return NULL;
 		curr_node = curr_node->next;

@@ -5,7 +5,6 @@ this lib is used for parsering and has the main() function.
 ====================================================================================================================
 */
 
-
 // Includes ---------------------------------------------------------------------->
 #include <stdio.h>
 #include <ctype.h>
@@ -86,7 +85,7 @@ int CheckNumber(char *number_string, int* exit_flag) {
 			string_number_copy[idx] = number_string[idx];
 			break;
 		}
-		if (number_string[idx] <= 57 && number_string[idx] >= 48 || number_string[idx] == '-')
+		if ((number_string[idx] <= 57 && number_string[idx] >= 48) || (number_string[idx] == '-'))
 			string_number_copy[idx] = number_string[idx];
 		else {
 			string_number_copy[idx] = '\0';
@@ -105,7 +104,6 @@ int CheckNumber(char *number_string, int* exit_flag) {
 }
 
 void UpperToLowerCase(char *action_string) {
-	char lower_case[MAX_LINE_LEN] = "";
 	size_t idx = 0;
 
 	for (idx = 0; idx < strlen(action_string); idx++) {
@@ -160,7 +158,7 @@ node* mainFunctionIteration(node *head, int *didnt_exit) {
 	if (action_wanted != PRINT && action_wanted != EXIT && action_wanted != NO_ACTION) {
 		str_ptr = FindNextWordBegining(input);
 		first_number = CheckNumber(str_ptr, didnt_exit);
-		if (str_ptr == NULL || didnt_exit == ERR) {
+		if (str_ptr == NULL || *didnt_exit == ERR) {
 			head = freeList(head);
 			*didnt_exit = 0;
 		}
@@ -168,12 +166,14 @@ node* mainFunctionIteration(node *head, int *didnt_exit) {
 	if (action_wanted == ADD_AFTER) {
 		str_ptr = FindNextWordBegining(str_ptr);
 		second_number = CheckNumber(str_ptr, didnt_exit);
-		if (str_ptr == NULL || didnt_exit == ERR) {
+		if (str_ptr == NULL || *didnt_exit == ERR) {
 			head = freeList(head);
 			*didnt_exit = 0;
 		}
 	}
+
 	head = executeFunction(head, action_wanted, first_number, second_number, didnt_exit);
+
 	return head;
 
 }
@@ -181,12 +181,12 @@ node* mainFunctionIteration(node *head, int *didnt_exit) {
 // main Function ---------------------------------------------------------------------->
 int main() {
 	node *head = NULL;
-	char input[MAX_LINE_LEN] = "", *str_ptr = NULL;
 	int didnt_exit = TRUE;
 
 	while (didnt_exit == TRUE) head = mainFunctionIteration(head, &didnt_exit);
 
 	printf("Program Ended.\n");
+
 	return 0;
 
 }

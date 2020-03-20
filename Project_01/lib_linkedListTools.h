@@ -25,4 +25,4 @@ node* freeList(node *head);
 
 node* del_idx(node *head, int idx, int *exit_flag);
 
-#endif LIB_LINKED_LIST_TOOLS_H
+#endif
