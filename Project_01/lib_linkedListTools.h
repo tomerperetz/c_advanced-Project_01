@@ -1,13 +1,13 @@
 #ifndef LIB_LINKED_LIST_TOOLS_H
 #define LIB_LINKED_LIST_TOOLS_H
-// Public Stractures ---------------------------------------------------------------------->
+// Public Stractures --------------------------------------------------------------------->
+
 typedef struct _node
 {
 	int data;
 	struct _node *prev;
 	struct _node *next;
 } node;
-
 
 // Public Functions ---------------------------------------------------------------------->
 
