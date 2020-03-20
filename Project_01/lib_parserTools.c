@@ -24,6 +24,8 @@ this lib is used for parsering and has the main() function.
 #define PRINT 6
 #define EXIT 7
 #define NO_ACTION 8
+#define ASCII_0 48
+#define ASCII_9 57
 
 // Private Functions ---------------------------------------------------------------------->
 char* FindNextWordBegining(char* string_ptr) {
@@ -85,7 +87,7 @@ int CheckNumber(char *number_string, int* exit_flag) {
 			string_number_copy[idx] = number_string[idx];
 			break;
 		}
-		if ((number_string[idx] <= 57 && number_string[idx] >= 48) || (number_string[idx] == '-'))
+		if ((number_string[idx] <= ASCII_9 && number_string[idx] >= ASCII_0) || (number_string[idx] == '-'))
 			string_number_copy[idx] = number_string[idx];
 		else {
 			string_number_copy[idx] = '\0';
