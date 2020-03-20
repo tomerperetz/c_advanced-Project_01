@@ -118,16 +118,20 @@ int add_after_element(node *head, int element, int data)
 {
 	node *new_node = init_node(data);
 	node *element_node = find_node_by_data_ret_node(head, element);
-	node *temp_node;
+	node *next_node;
+	
 
 	if (element_node == NULL) return ERR;
+	
+	next_node = element_node->next;
 
-	temp_node = element_node->next;
+	new_node->prev = element_node;
+	new_node->next = next_node;
+	
 	element_node->next = new_node;
-	new_node->next = temp_node;
 
-	if (temp_node != NULL)
-		temp_node->prev = new_node;
+	if (next_node != NULL)
+		next_node->prev = new_node;
 
 	return TRUE;
 }
@@ -163,7 +167,6 @@ node* del_idx(node *head, int idx, int *exit_flag)
 		new_head = next_node;
 
 	free(quarntine_node);
-	
 	return new_head;
 }
 
