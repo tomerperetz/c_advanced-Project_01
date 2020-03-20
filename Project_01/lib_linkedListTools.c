@@ -180,7 +180,7 @@ void printList(node *head)
 		printf("[");
 		while (curr_node->next != NULL)
 		{
-			printf("%d ,", curr_node->data);
+			printf("%d,  ", curr_node->data);
 			curr_node = curr_node->next;
 		}
 

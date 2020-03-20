@@ -123,7 +123,7 @@
   <ItemGroup>
     <ClCompile Include="lib_errorHandler.c" />
     <ClCompile Include="lib_linkedListTools.c" />
-    <ClCompile Include="lib_parserTools.c" />
+    <ClCompile Include="lib_ParserTools.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib_errorHandler.h" />

@@ -21,7 +21,7 @@
     <ClCompile Include="lib_linkedListTools.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib_parserTools.c">
+    <ClCompile Include="lib_ParserTools.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

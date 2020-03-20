@@ -44,7 +44,7 @@ char* FindNextWordBegining(char* string_ptr) {
 		else
 			return &string_ptr[idx];
 	}
-	raiseError(5, __FILE__, __func__, __LINE__, ERR_5_NOT_ENOUGH_VALUES);
+	raiseError(ERR_5, __FILE__, __func__, __LINE__, ERR_5_NOT_ENOUGH_VALUES);
 	return NULL;
 }
 
@@ -72,7 +72,7 @@ int CheckAction(char *action_string) {
 	else if (strcmp(action_type, "print") == 0) return PRINT;
 	else if (strcmp(action_type, "exit") == 0) return EXIT;
 	else {
-		raiseError(3, __FILE__, __func__, __LINE__, ERR_3_ACTION_NOT_DEFINED);
+		raiseError(ERR_3, __FILE__, __func__, __LINE__, ERR_3_ACTION_NOT_DEFINED);
 			return NO_ACTION;
 	}
 }
@@ -94,10 +94,11 @@ int CheckNumber(char *number_string, int* exit_flag) {
 			break;
 		}
 	}
-	if (strcmp(string_number_copy, "0") == 0) return 0;     // because atoi() returns 0 for invalid input and 0 is a valid input for this function- we need to check it. 
+	if (strcmp(string_number_copy, "0") == 0) return 0;     
+		// because atoi() returns 0 for invalid input and 0 is a valid input for this function- we need to check it. 
 	value = atoi(string_number_copy);
 	if (value == 0) {
-		raiseError(4, __FILE__, __func__, __LINE__, ERR_4_NUMBER_NOT_DEFINED);
+		raiseError(ERR_4, __FILE__, __func__, __LINE__, ERR_4_NUMBER_NOT_DEFINED);
 		*exit_flag = ERR;
 		return ERR;
 	}
@@ -148,8 +149,6 @@ node *executeFunction(node *head, int action, int first_number, int second_numbe
 node* mainFunctionIteration(node *head, int *didnt_exit) {
 	char input[MAX_LINE_LEN] = "", *str_ptr = NULL;
 	int action_wanted = -1, first_number = -1, second_number = -1;
-
-	printf("Write down wanted action:\n");
 	fgets(input, MAX_LINE_LEN, stdin);
 	UpperToLowerCase(input);
 	action_wanted = CheckAction(input);
@@ -186,8 +185,6 @@ int main() {
 	int didnt_exit = TRUE;
 
 	while (didnt_exit == TRUE) head = mainFunctionIteration(head, &didnt_exit);
-
-	printf("Program Ended.\n");
 
 	return 0;
 
