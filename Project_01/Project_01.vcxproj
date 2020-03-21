@@ -121,13 +121,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="lib_errorHandler.c" />
-    <ClCompile Include="lib_linkedListTools.c" />
-    <ClCompile Include="lib_ParserTools.c" />
+    <ClCompile Include="errorHandler.c" />
+    <ClCompile Include="linkedListTools.c" />
+    <ClCompile Include="mainParser.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="lib_errorHandler.h" />
-    <ClInclude Include="lib_linkedListTools.h" />
+    <ClInclude Include="errorHandler.h" />
+    <ClInclude Include="linkedListTools.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

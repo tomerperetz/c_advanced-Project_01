@@ -10,8 +10,8 @@ this lib is used for handeling linked lists
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "lib_errorHandler.h"
-#include "lib_linkedListTools.h"
+#include "errorHandler.h"
+#include "linkedListTools.h"
 
 
 // Private Functions ---------------------------------------------------------------------->
@@ -22,7 +22,7 @@ node* init_node(int data)
 
 	if (new_node == NULL)
 	{
-		raiseError(2, __FILE__, __func__, __LINE__, ERR_2_MEM_ALLOC);
+		raiseError(ERR_MEM_ALLOC_ID, __FILE__, __func__, __LINE__, ERR_MEM_ALLOC);
 		return NULL;
 	}
 	new_node->data = data;
@@ -37,7 +37,7 @@ int isListEmpty(node *head)
 	// check if list is empty a given head node, if so - raise errors
 	if (head == NULL)
 	{
-		raiseError(1, __FILE__, __func__, __LINE__, ERR_1_LINKED_LIST_ERR);
+		raiseError(ERR_LINKED_LIST_ERR_ID, __FILE__, __func__, __LINE__, ERR_LINKED_LIST_ERR);
 		return TRUE;
 	}
 	return FALSE;
@@ -67,7 +67,7 @@ node* find_node_by_data_ret_node(node *head, int element)
 		if (curr_node->data == element) return curr_node;
 		curr_node = curr_node->next;
 	}
-	raiseError(1, __FILE__, __func__, __LINE__, ERR_1_LINKED_LIST_ERR);
+	raiseError(ERR_LINKED_LIST_ERR_ID, __FILE__, __func__, __LINE__, ERR_LINKED_LIST_ERR);
 	return NULL;
 }
 

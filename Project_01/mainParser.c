@@ -10,8 +10,8 @@ this lib is used for parsering and has the main() function.
 #include <ctype.h>
 #include <string.h>
 #include <stdlib.h>
-#include "lib_linkedListTools.h"
-#include "lib_errorHandler.h"
+#include "linkedListTools.h"
+#include "errorHandler.h"
 
 // Defines ---------------------------------------------------------------------->
 #define MAX_LINE_LEN 100
@@ -24,8 +24,8 @@ this lib is used for parsering and has the main() function.
 #define PRINT 6
 #define EXIT 7
 #define NO_ACTION 8
-#define ASCII_0 48
-#define ASCII_9 57
+#define ASCII_MIN_VAL 48
+#define ASCII_MAX_VAL 57
 
 // Private Functions ---------------------------------------------------------------------->
 char* FindNextWordBegining(char* string_ptr) {
@@ -44,7 +44,7 @@ char* FindNextWordBegining(char* string_ptr) {
 		else
 			return &string_ptr[idx];
 	}
-	raiseError(ERR_5, __FILE__, __func__, __LINE__, ERR_5_NOT_ENOUGH_VALUES);
+	raiseError(ERR_NOT_ENOUGH_VALUES_ID, __FILE__, __func__, __LINE__, ERR_NOT_ENOUGH_VALUES);
 	return NULL;
 }
 
@@ -72,7 +72,7 @@ int CheckAction(char *action_string) {
 	else if (strcmp(action_type, "print") == 0) return PRINT;
 	else if (strcmp(action_type, "exit") == 0) return EXIT;
 	else {
-		raiseError(ERR_3, __FILE__, __func__, __LINE__, ERR_3_ACTION_NOT_DEFINED);
+		raiseError(ERR_ACTION_NOT_DEFINED_ID, __FILE__, __func__, __LINE__, ERR_ACTION_NOT_DEFINED);
 			return NO_ACTION;
 	}
 }
@@ -87,7 +87,8 @@ int CheckNumber(char *number_string, int* exit_flag) {
 			string_number_copy[idx] = number_string[idx];
 			break;
 		}
-		if ((number_string[idx] <= ASCII_9 && number_string[idx] >= ASCII_0) || (number_string[idx] == '-'))
+		if ((number_string[idx] <= ASCII_MAX_VAL && number_string[idx] >= ASCII_MIN_VAL) || (number_string[idx] == '-'))
+			// verify charactor is the digits range from ascii tablew
 			string_number_copy[idx] = number_string[idx];
 		else {
 			string_number_copy[idx] = '\0';
@@ -98,7 +99,7 @@ int CheckNumber(char *number_string, int* exit_flag) {
 		// because atoi() returns 0 for invalid input and 0 is a valid input for this function- we need to check it. 
 	value = atoi(string_number_copy);
 	if (value == 0) {
-		raiseError(ERR_4, __FILE__, __func__, __LINE__, ERR_4_NUMBER_NOT_DEFINED);
+		raiseError(ERR_NUMBER_NOT_DEFINED_ID, __FILE__, __func__, __LINE__, ERR_NUMBER_NOT_DEFINED);
 		*exit_flag = ERR;
 		return ERR;
 	}

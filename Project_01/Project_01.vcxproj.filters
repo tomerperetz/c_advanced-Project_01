@@ -15,21 +15,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="lib_errorHandler.c">
+    <ClCompile Include="mainParser.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib_linkedListTools.c">
+    <ClCompile Include="errorHandler.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib_ParserTools.c">
+    <ClCompile Include="linkedListTools.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="lib_errorHandler.h">
+    <ClInclude Include="linkedListTools.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib_linkedListTools.h">
+    <ClInclude Include="errorHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

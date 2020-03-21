@@ -1,5 +1,5 @@
-#ifndef LIB_LINKED_LIST_TOOLS_H
-#define LIB_LINKED_LIST_TOOLS_H
+#ifndef LINKED_LIST_TOOLS_H
+#define LINKED_LIST_TOOLS_H
 
 // Public Stractures --------------------------------------------------------------------->
 

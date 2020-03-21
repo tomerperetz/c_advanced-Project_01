@@ -8,7 +8,7 @@ this lib is used for error handeling.
 
 // Includes -------------------------------------------------------------------------------------->
 #include <stdio.h>
-#include "lib_errorHandler.h"
+#include "errorHandler.h"
 
 // Public Functions -------------------------------------------------------------------------------------- >
 void raiseError(int error_id, const char *file_path, const char *function_name, int line, const char *description)
